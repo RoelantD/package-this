@@ -145,6 +145,33 @@ def insert_via_point(
     return via
 
 
+def list_routes(session: Session, status: str | None = None) -> list[dict]:
+    """Return a summary list of all routes, optionally filtered by status."""
+    query = select(TruckRoute)
+    if status is not None:
+        query = query.where(TruckRoute.status == status)
+    routes = session.exec(query.order_by(TruckRoute.created_at.desc())).all()
+
+    result = []
+    for route in routes:
+        stops = session.exec(
+            select(RouteStop)
+            .where(RouteStop.route_id == route.route_id)
+            .order_by(RouteStop.stop_order)
+        ).all()
+        result.append({
+            "route_id": route.route_id,
+            "truck_id": route.truck_id,
+            "status": route.status,
+            "estimated_duration_minutes": route.estimated_duration_minutes,
+            "stop_count": len(stops),
+            "started_at": route.started_at,
+            "completed_at": route.completed_at,
+            "created_at": route.created_at,
+        })
+    return result
+
+
 def get_route_detail(session: Session, route_id: str) -> dict:
     """Return full route with geometry, stops, and via-points."""
     route = session.exec(select(TruckRoute).where(TruckRoute.route_id == route_id)).first()

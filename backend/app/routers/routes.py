@@ -1,12 +1,19 @@
 from fastapi import APIRouter, Depends
 from sqlmodel import Session, select
 
+from typing import Optional
+
 from app.database import get_session
 from app.models.package import Package, PackageStatus
 from app.models.truck import Truck
-from app.services.route_service import get_route_detail
+from app.services.route_service import get_route_detail, list_routes
 
 router = APIRouter(tags=["Routes"])
+
+
+@router.get("/routes", response_model=list)
+def get_routes(status: Optional[str] = None, session: Session = Depends(get_session)):
+    return list_routes(session, status=status)
 
 
 @router.get("/routes/{route_id}", response_model=dict)
