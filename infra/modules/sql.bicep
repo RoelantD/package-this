@@ -33,4 +33,5 @@ resource sqlDatabase 'Microsoft.Sql/servers/databases@2023-05-01-preview' = {
   }
 }
 
+#disable-next-line outputs-should-not-contain-secrets
 output connectionString string = 'mssql+pyodbc://${adminLogin}:${adminPassword}@${sqlServer.properties.fullyQualifiedDomainName}/dm-packages?driver=ODBC+Driver+18+for+SQL+Server'

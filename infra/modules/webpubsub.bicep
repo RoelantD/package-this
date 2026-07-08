@@ -22,4 +22,5 @@ resource hub 'Microsoft.SignalRService/webPubSub/hubs@2023-02-01' = {
   }
 }
 
+#disable-next-line outputs-should-not-contain-secrets
 output connectionString string = webPubSub.listKeys().primaryConnectionString

@@ -13,4 +13,5 @@ resource mapsAccount 'Microsoft.Maps/accounts@2023-06-01' = {
   }
 }
 
+#disable-next-line outputs-should-not-contain-secrets
 output primaryKey string = mapsAccount.listKeys().primaryKey

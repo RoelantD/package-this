@@ -37,4 +37,5 @@ resource authRule 'Microsoft.ServiceBus/namespaces/authorizationRules@2022-10-01
   }
 }
 
+#disable-next-line outputs-should-not-contain-secrets
 output connectionString string = authRule.listKeys().primaryConnectionString
