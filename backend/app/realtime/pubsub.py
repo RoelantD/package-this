@@ -3,7 +3,7 @@ from typing import Any
 
 from app.realtime.broadcaster import RealtimeBroadcaster
 
-HUB_NAME = "dm-packages"
+HUB_NAME = "dmpackages"
 
 
 class WebPubSubBroadcaster(RealtimeBroadcaster):

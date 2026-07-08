@@ -16,7 +16,7 @@ resource webPubSub 'Microsoft.SignalRService/webPubSub@2023-02-01' = {
 
 resource hub 'Microsoft.SignalRService/webPubSub/hubs@2023-02-01' = {
   parent: webPubSub
-  name: 'dm-packages'
+  name: 'dmpackages'
   properties: {
     anonymousConnectPolicy: 'allow'
   }
