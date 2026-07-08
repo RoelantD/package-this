@@ -116,6 +116,9 @@ resource frontend 'Microsoft.App/containerApps@2023-05-01' = {
             cpu: json('0.25')
             memory: '0.5Gi'
           }
+          env: [
+            { name: 'BACKEND_URL', value: 'https://${backend.properties.configuration.ingress!.fqdn}' }
+          ]
         }
       ]
       scale: {

@@ -9,6 +9,9 @@ RUN npm run build
 
 FROM nginx:alpine
 COPY --from=builder /app/dist/dm-package-manager/browser /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# nginx.conf is a template; the entrypoint runs envsubst on ${BACKEND_URL}.
+# Default targets the docker-compose backend service; overridden in Azure.
+ENV BACKEND_URL=http://backend:8000
+COPY nginx.conf /etc/nginx/templates/default.conf.template
 EXPOSE 4200
 CMD ["nginx", "-g", "daemon off;"]
