@@ -6,6 +6,9 @@ param environmentName string = 'dev'
 @description('Azure region')
 param location string = resourceGroup().location
 
+@description('Region for Azure Maps (not available in every region, e.g. not in swedencentral)')
+param mapsLocation string = 'northeurope'
+
 @description('SQL admin login')
 param sqlAdminLogin string
 
@@ -65,7 +68,7 @@ module maps './modules/maps.bicep' = {
   name: 'maps'
   params: {
     prefix: prefix
-    location: location
+    location: mapsLocation
   }
 }
 
