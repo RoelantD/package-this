@@ -128,15 +128,8 @@ jobs:
             registryPassword=${{ secrets.GITHUB_TOKEN }}
           failOnStdErr: false
 
-      - name: Run database migrations
-        uses: azure/cli@v2
-        with:
-          azcliversion: latest
-          inlineScript: |
-            az containerapp exec \
-              --name "dm-packages-${{ env.ENVIRONMENT_NAME }}-backend" \
-              --resource-group "${{ env.RESOURCE_GROUP }}" \
-              --command "alembic upgrade head"
+      # Database migrations run automatically on backend container startup
+      # (see backend/Dockerfile CMD: alembic upgrade head && uvicorn ...)
 
       - name: Show deployed URLs
         uses: azure/cli@v2
