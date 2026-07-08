@@ -30,7 +30,6 @@ env:
   AZURE_LOCATION: ${{ vars.AZURE_LOCATION || 'eastus' }}
   RESOURCE_GROUP: ${{ vars.AZURE_RESOURCE_GROUP || 'rg-dm-packages-dev' }}
   REGISTRY: ghcr.io
-  IMAGE_PREFIX: ghcr.io/${{ github.repository }}
 
 jobs:
   build-and-push:
@@ -45,9 +44,12 @@ jobs:
       - name: Compute image tags
         id: meta
         run: |
+          # GHCR requires a lowercase repository path
+          PREFIX="ghcr.io/$(echo '${{ github.repository }}' | tr '[:upper:]' '[:lower:]')"
           TAG="${GITHUB_SHA::12}"
-          echo "backendImage=${IMAGE_PREFIX}/backend:${TAG}" >> "$GITHUB_OUTPUT"
-          echo "frontendImage=${IMAGE_PREFIX}/frontend:${TAG}" >> "$GITHUB_OUTPUT"
+          echo "prefix=${PREFIX}" >> "$GITHUB_OUTPUT"
+          echo "backendImage=${PREFIX}/backend:${TAG}" >> "$GITHUB_OUTPUT"
+          echo "frontendImage=${PREFIX}/frontend:${TAG}" >> "$GITHUB_OUTPUT"
 
       - name: Log in to GHCR
         uses: docker/login-action@v3
@@ -67,7 +69,7 @@ jobs:
           push: true
           tags: |
             ${{ steps.meta.outputs.backendImage }}
-            ${{ env.IMAGE_PREFIX }}/backend:latest
+            ${{ steps.meta.outputs.prefix }}/backend:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -81,7 +83,7 @@ jobs:
             AZURE_MAPS_KEY=${{ secrets.AZURE_MAPS_KEY }}
           tags: |
             ${{ steps.meta.outputs.frontendImage }}
-            ${{ env.IMAGE_PREFIX }}/frontend:latest
+            ${{ steps.meta.outputs.prefix }}/frontend:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
