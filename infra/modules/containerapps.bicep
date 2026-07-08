@@ -102,6 +102,8 @@ resource frontend 'Microsoft.App/containerApps@2023-05-01' = {
       ingress: {
         external: true
         targetPort: 4200
+        transport: 'http'
+      }
       registries: registries
       secrets: registrySecrets
     }
@@ -110,8 +112,6 @@ resource frontend 'Microsoft.App/containerApps@2023-05-01' = {
         {
           name: 'frontend'
           image: frontendImage
-          name: 'frontend'
-          image: 'ghcr.io/globalai-community/dm-package-manager/frontend:latest'
           resources: {
             cpu: json('0.25')
             memory: '0.5Gi'
