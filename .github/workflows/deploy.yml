@@ -27,7 +27,7 @@ permissions:
 
 env:
   ENVIRONMENT_NAME: ${{ github.event.inputs.environmentName || 'dev' }}
-  AZURE_LOCATION: ${{ vars.AZURE_LOCATION || 'eastus' }}
+  AZURE_LOCATION: ${{ vars.AZURE_LOCATION || 'swedencentral' }}
   RESOURCE_GROUP: ${{ vars.AZURE_RESOURCE_GROUP || 'rg-dm-packages-dev' }}
   REGISTRY: ghcr.io
 
