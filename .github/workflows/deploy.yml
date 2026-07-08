@@ -123,9 +123,6 @@ jobs:
             sqlAdminPassword=${{ secrets.SQL_ADMIN_PASSWORD }}
             backendImage=${{ needs.build-and-push.outputs.backendImage }}
             frontendImage=${{ needs.build-and-push.outputs.frontendImage }}
-            registryServer=${{ env.REGISTRY }}
-            registryUsername=${{ github.actor }}
-            registryPassword=${{ secrets.GITHUB_TOKEN }}
           failOnStdErr: false
 
       # Database migrations run automatically on backend container startup
