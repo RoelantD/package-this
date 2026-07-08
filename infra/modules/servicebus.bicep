@@ -13,7 +13,7 @@ var topics = [
 ]
 
 resource namespace 'Microsoft.ServiceBus/namespaces@2022-10-01-preview' = {
-  name: '${prefix}-sb'
+  name: '${prefix}-bus'
   location: location
   sku: {
     name: 'Standard'
