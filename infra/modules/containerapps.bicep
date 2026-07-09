@@ -78,7 +78,7 @@ resource backend 'Microsoft.App/containerApps@2023-05-01' = {
             { name: 'DATABASE_URL', value: sqlConnectionString }
             { name: 'EVENT_PUBLISHER', value: 'servicebus' }
             { name: 'AZURE_SERVICE_BUS_CONNECTION_STRING', value: serviceBusConnectionString }
-            { name: 'REALTIME_PUBLISHER', value: 'webpubsub' }
+            { name: 'REALTIME_PUBLISHER', value: 'websocket' }
             { name: 'AZURE_WEB_PUBSUB_CONNECTION_STRING', value: webPubSubConnectionString }
             { name: 'AZURE_MAPS_KEY', value: azureMapsKey }
             { name: 'APP_ENV', value: 'azure' }
